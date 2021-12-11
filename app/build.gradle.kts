@@ -5,6 +5,8 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.2/samples
  */
 
+version="1.0.3"
+
 plugins {
     application
     `maven-publish`
