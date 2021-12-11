@@ -43,13 +43,13 @@ public class MyTest {
     }
 
     @Before
-    void setUp() throws Exception {
+    public void setUp() throws Exception {
 
     }
 
     @Test
-    void testMultiply() {
+    public void testMultiply() {
 
-
+        System.out.println("good test");
     }
 }

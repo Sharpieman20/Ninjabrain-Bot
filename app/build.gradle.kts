@@ -7,6 +7,7 @@
 
 plugins {
     application
+    `maven-publish`
 }
 
 repositories {
@@ -36,20 +37,23 @@ java {
 //    }
 //}
 
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-}
+//tasks.named<Test>("test") {
+//    useJUnitPlatform()
+//}
 
 
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testCompileOnly("junit:junit:4.13")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
     implementation("com.github.kwhat:jnativehook:2.2.1")
     implementation("org.json:json:20211205")
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:2.2.0.RELEASE")
 }
 
 application {
@@ -58,4 +62,17 @@ application {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "sharpie"
+            artifactId = "Ninjabrain-Bot"
+            version = "1.0.1"
+
+            from(components["java"])
+        }
+    }
 }
