@@ -191,7 +191,7 @@ public class OptionsFrame extends ThemedFrame {
 	}
 
 	private FlatButton getExitButton() {
-		URL iconURL = Main.class.getResource("/resources/exit_icon.png");
+		URL iconURL = Main.getResource("exit_icon.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		FlatButton button = new TitleBarButton(gui, img) {
 			private static final long serialVersionUID = 4380111129291481489L;

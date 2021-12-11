@@ -6,11 +6,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Instant;
 
+import ninjabrainbot.gui.GUI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import ninjabrainbot.Main;
-import ninjabrainbot.gui.GUI;
 
 public class UpdateChecker implements Runnable {
 

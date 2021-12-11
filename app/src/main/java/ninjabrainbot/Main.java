@@ -1,12 +1,15 @@
 package ninjabrainbot;
 
-import ninjabrainbot.calculator.ApproximatedDensity;
 import ninjabrainbot.gui.GUI;
 import ninjabrainbot.io.ClipboardReader;
 import ninjabrainbot.io.KeyboardListener;
 import ninjabrainbot.io.NinjabrainBotPreferences;
 import ninjabrainbot.io.UpdateChecker;
 import ninjabrainbot.util.Profiler;
+import ninjabrainbot.calculator.ApproximatedDensity;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class Main {
 
@@ -39,6 +42,16 @@ public class Main {
 	// [x] Calibration
 	// [ ] Show closest possible location
 	// [ ] Sigma toggle
+
+	public static URL getResource(String name) {
+
+		return Main.class.getClassLoader().getResource(name);
+	}
+
+	public static InputStream getResourceAsStream(String name) {
+
+		return Main.class.getClassLoader().getResourceAsStream(name);
+	}
 
 	public static void main(String[] args) {
 		Profiler.start("Initialize preferences");

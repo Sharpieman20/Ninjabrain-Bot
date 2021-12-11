@@ -16,10 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import ninjabrainbot.Main;
 import ninjabrainbot.calculator.Throw;
-import ninjabrainbot.calculator.TriangulationResult;
 import ninjabrainbot.calculator.Triangulator;
+import ninjabrainbot.util.Profiler;
+import ninjabrainbot.Main;
+import ninjabrainbot.calculator.TriangulationResult;
 import ninjabrainbot.gui.components.CalibrationPanel;
 import ninjabrainbot.gui.components.EnderEyePanel;
 import ninjabrainbot.gui.components.MainButtonPanel;
@@ -27,7 +28,6 @@ import ninjabrainbot.gui.components.MainTextArea;
 import ninjabrainbot.gui.components.NinjabrainBotFrame;
 import ninjabrainbot.gui.components.ThemedComponent;
 import ninjabrainbot.io.VersionURL;
-import ninjabrainbot.util.Profiler;
 
 /**
  * Main class for the user interface.
@@ -73,8 +73,8 @@ public class GUI {
 		// Load fonts
 		Profiler.stopAndStart("Load fonts");
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/resources/OpenSans-Regular.ttf"));
-			fontLight = Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/resources/OpenSans-Light.ttf"));
+			font = Font.createFont(Font.TRUETYPE_FONT, Main.getResourceAsStream("OpenSans-Regular.ttf"));
+			fontLight = Font.createFont(Font.TRUETYPE_FONT, Main.getResourceAsStream("OpenSans-Light.ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font);
 			ge.registerFont(fontLight);
@@ -84,7 +84,7 @@ public class GUI {
 		
 		// Set application icon
 		Profiler.stopAndStart("Set app icon");
-		URL iconURL = Main.class.getResource("/resources/icon.png");
+		URL iconURL = Main.getResource("icon.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		frame.setIconImage(img.getImage());
 

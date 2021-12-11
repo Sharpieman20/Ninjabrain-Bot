@@ -26,7 +26,7 @@ public class NotificationsButton extends TitleBarButton {
 	int duration = 1000;
 	
 	public NotificationsButton(GUI gui) {
-		super(gui, new ImageIcon(Main.class.getResource("/resources/notifications_icon.png")));
+		super(gui, new ImageIcon(Main.getResource("notifications_icon.png")));
 		this.gui = gui;
 		addActionListener(p -> toggleNotificationsWindow());
 		setVisible(false);

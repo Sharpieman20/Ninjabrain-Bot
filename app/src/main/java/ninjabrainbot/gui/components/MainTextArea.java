@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ninjabrainbot.Main;
-import ninjabrainbot.calculator.TriangulationResult;
 import ninjabrainbot.gui.GUI;
 import ninjabrainbot.gui.Theme;
+import ninjabrainbot.calculator.TriangulationResult;
 
 public class MainTextArea extends ThemedPanel {
 

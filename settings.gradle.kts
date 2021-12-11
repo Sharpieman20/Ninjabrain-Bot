@@ -8,3 +8,4 @@
  */
 
 rootProject.name = "Ninjabrain-Bot"
+include("app")

@@ -4,10 +4,10 @@ import java.util.prefs.Preferences;
 
 import javax.swing.SwingUtilities;
 
-import ninjabrainbot.Main;
 import ninjabrainbot.gui.GUI;
 import ninjabrainbot.gui.SizePreference;
 import ninjabrainbot.gui.Theme;
+import ninjabrainbot.Main;
 
 public class NinjabrainBotPreferences {
 	

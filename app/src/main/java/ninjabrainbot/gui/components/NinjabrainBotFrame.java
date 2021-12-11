@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import ninjabrainbot.Main;
@@ -27,7 +26,7 @@ public class NinjabrainBotFrame extends ThemedFrame {
 	public NinjabrainBotFrame(GUI gui) {
 		super(gui, TITLE_TEXT);
 		setLocation(Main.preferences.windowX.get(), Main.preferences.windowY.get()); // Set window position
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// Create title bar
 		versiontextLabel = new ThemedLabel(gui, VERSION_TEXT) {
@@ -66,7 +65,7 @@ public class NinjabrainBotFrame extends ThemedFrame {
 	}
 	
 	private FlatButton getExitButton(GUI gui) {
-		URL iconURL = Main.class.getResource("/resources/exit_icon.png");
+		URL iconURL = Main.getResource("exit_icon.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		FlatButton button = new TitleBarButton(gui, img) {
 			private static final long serialVersionUID = -5122431392273627666L;
@@ -80,15 +79,15 @@ public class NinjabrainBotFrame extends ThemedFrame {
 	}
 
 	private FlatButton getMinimizeButton(GUI gui) {
-		URL iconURL = Main.class.getResource("/resources/minimize_icon.png");
+		URL iconURL = Main.getResource("minimize_icon.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		FlatButton button = new TitleBarButton(gui, img);
-		button.addActionListener(p -> setState(JFrame.ICONIFIED));
+		button.addActionListener(p -> setState(ICONIFIED));
 		return button;
 	}
 	
 	private FlatButton getSettingsButton(GUI gui) {
-		URL iconURL = Main.class.getResource("/resources/settings_icon.png");
+		URL iconURL = Main.getResource("settings_icon.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		FlatButton button = new TitleBarButton(gui, img);
 		button.addActionListener(p -> gui.toggleOptionsWindow());
@@ -97,10 +96,10 @@ public class NinjabrainBotFrame extends ThemedFrame {
 	
 	public void toggleMinimized() {
 		int state = getState();
-		if (state == JFrame.ICONIFIED) {
-			setState(JFrame.NORMAL);
+		if (state == ICONIFIED) {
+			setState(NORMAL);
 		} else {
-			setState(JFrame.ICONIFIED);
+			setState(ICONIFIED);
 		}
 	}
 	

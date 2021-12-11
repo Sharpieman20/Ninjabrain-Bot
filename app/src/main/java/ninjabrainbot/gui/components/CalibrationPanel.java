@@ -20,8 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import ninjabrainbot.Main;
-import ninjabrainbot.calculator.Calibrator;
 import ninjabrainbot.calculator.Throw;
+import ninjabrainbot.calculator.Calibrator;
 import ninjabrainbot.gui.GUI;
 import ninjabrainbot.gui.Histogram;
 import ninjabrainbot.gui.OptionsFrame;
@@ -267,7 +267,7 @@ class InstructionLabel extends ThemedLabel {
 	
 	public InstructionLabel(GUI gui, String text) {
 		super(gui, "<html><div style='text-align: center;'>" + text + "</div></html>");
-		setHorizontalAlignment(SwingConstants.CENTER);
+		setHorizontalAlignment(CENTER);
 		setAlignmentX(0.5f);
 	}
 	
