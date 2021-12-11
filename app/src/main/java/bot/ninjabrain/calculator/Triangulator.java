@@ -3,6 +3,7 @@ package bot.ninjabrain.calculator;
 import java.util.ArrayList;
 
 import bot.Main;
+import bot.ninjabrain.util.Profiler;
 
 public class Triangulator {
 
@@ -31,7 +32,10 @@ public class Triangulator {
 		Posterior posterior = new Posterior(sigma, eyeThrows);
 		// Find chunk with largest posterior probability
 		Chunk predictedChunk = posterior.getMostProbableChunk();
-		System.out.println("Time to triangulate: " + (System.currentTimeMillis() - t0)/1000f + " seconds.");
+		if (!Profiler.permDisabled) {
+
+			System.out.println("Time to triangulate: " + (System.currentTimeMillis() - t0)/1000f + " seconds.");
+		}
 //		posterior.getChunks().stream().sorted((a, b) -> Double.compare(a.weight, b.weight)).forEach(p -> System.out.println(p));;
 		return new TriangulationResult(predictedChunk, eyeThrows.get(eyeThrows.size() - 1));
 	}

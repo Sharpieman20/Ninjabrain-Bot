@@ -3,12 +3,16 @@ package bot.ninjabrain.util;
 import java.util.HashMap;
 
 public class Profiler {
-	
+
+	public static boolean permDisabled = true;
 	private static boolean enabled = false;
 	static Timer root = new Timer(null, "root");
 	static Timer active = root;
 	
 	public static void stopAndStart(String timer) {
+		if (permDisabled) {
+			return;
+		}
 		if (enabled) {
 			stop();
 			start(timer);
@@ -16,18 +20,27 @@ public class Profiler {
 	}
 	
 	public static void start(String timer) {
+		if (permDisabled) {
+			return;
+		}
 		if (enabled) {
 			active = active.startChild(timer);
 		}
 	}
 	
 	public static void stop() {
+		if (permDisabled) {
+			return;
+		}
 		if (enabled) {
 			active = active.stop();
 		}
 	}
 	
 	public static void print() {
+		if (permDisabled) {
+			return;
+		}
 		if (enabled) {
 			active.updateTotalTime();
 			root.print(0);
@@ -35,6 +48,9 @@ public class Profiler {
 	}
 	
 	public static void clear() {
+		if (permDisabled) {
+			return;
+		}
 		if (enabled) {
 			root = new Timer(null, "root");
 			active = root;

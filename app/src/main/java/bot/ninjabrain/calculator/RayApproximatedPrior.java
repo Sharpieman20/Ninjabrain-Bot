@@ -1,5 +1,7 @@
 package bot.ninjabrain.calculator;
 
+import bot.ninjabrain.util.Profiler;
+
 import java.util.ArrayList;
 
 /**
@@ -16,7 +18,10 @@ public class RayApproximatedPrior implements IPrior {
 	public RayApproximatedPrior(Ray r, double tolerance) {
 		long t0 = System.currentTimeMillis();
 		construct(r, tolerance);
-		System.out.println("Time to construct prior: " + (System.currentTimeMillis() - t0)/1000f + " seconds.");
+		if (!Profiler.permDisabled) {
+
+			System.out.println("Time to construct prior: " + (System.currentTimeMillis() - t0)/1000f + " seconds.");
+		}
 	}
 	
 	private void construct(Ray r, double tolerance) {

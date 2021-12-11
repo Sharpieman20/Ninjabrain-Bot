@@ -101,6 +101,10 @@ public class Posterior {
 		double gamma = -180 / Math.PI * Math.atan2(deltax, deltaz); // mod 360 necessary?
 		double delta = Math.abs((gamma - t.alpha) % 360.0);
 		delta = Math.min(delta, 360.0 - delta);
+		if (delta < 0.005) {
+
+			delta = 0;
+		}
 		chunk.weight *= Math.exp(-delta * delta / (2 * sigma * sigma));
 	}
 	

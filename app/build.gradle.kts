@@ -5,7 +5,7 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.2/samples
  */
 
-version="1.0.3"
+version="1.0.4"
 
 plugins {
     application
@@ -22,6 +22,13 @@ java {
         languageVersion.set(JavaLanguageVersion.of(11))
     }
     withSourcesJar()
+}
+
+
+val jar by tasks.getting(Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "bot.Main"
+    }
 }
 
 //sourceSets {
@@ -73,7 +80,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "sharpie"
             artifactId = "Ninjabrain-Bot"
-            version = "1.0.2"
+            version = version
 
             from(components["java"])
         }
