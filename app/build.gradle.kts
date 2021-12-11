@@ -29,7 +29,16 @@ java {
 //            setSrcDirs(listOf("src/resources"))
 //        }
 //    }
+//    test {
+//        java {
+//            setSrcDirs(listOf("test/java"))
+//        }
+//    }
 //}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
 
 
 
@@ -44,10 +53,9 @@ dependencies {
 }
 
 application {
-    mainClass.set("ninjabrainbot.Main")
+    mainClass.set("bot.Main")
 }
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
-
