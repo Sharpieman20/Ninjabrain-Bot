@@ -21,7 +21,8 @@ public class NinjabrainBotPreferences {
 	public HotkeyPreference hotkeyUndo;
 	public HotkeyPreference hotkeyMinimize;
 	public HotkeyPreference hotkeyBlind;
-	public HotkeyPreference hotkeyDivine;
+	public HotkeyPreference hotkeyStartEnteringDivine;
+	public HotkeyPreference hotkeyFinishEnteringDivine;
 	public FloatPreference sigma;
 	public BooleanPreference checkForUpdates;
 	public BooleanPreference translucent;
@@ -79,12 +80,20 @@ public class NinjabrainBotPreferences {
 				SwingUtilities.invokeLater(() -> gui.doBlind());
 			}
 		};
-		hotkeyDivine = new HotkeyPreference("hotkey_divine", pref) {
+		hotkeyStartEnteringDivine = new HotkeyPreference("hotkey_divine", pref) {
 			@Override
 			public void execute(GUI gui) {
-				SwingUtilities.invokeLater(() -> gui.toggleDivine());
+				SwingUtilities.invokeLater(() -> gui.setDivine(true));
 			}
 		};
+		hotkeyFinishEnteringDivine = new HotkeyPreference("hotkey_enter", pref) {
+			@Override
+			public void execute(GUI gui) {
+				SwingUtilities.invokeLater(() -> gui.setDivine(false));
+			}
+		};
+		hotkeyFinishEnteringDivine.setCode(13);
+		hotkeyFinishEnteringDivine.setModifier(0);
 		for (int i = 0; i <= 9; i++) {
 			final int key = i;
 			HotkeyPreference numberPreference = new HotkeyPreference("hotkey_"+i, pref) {

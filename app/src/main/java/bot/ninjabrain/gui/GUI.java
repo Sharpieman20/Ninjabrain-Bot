@@ -233,8 +233,8 @@ public class GUI {
 		isBlindTravelMode = true;
 	}
 
-	public void toggleDivine() {
-		isDivineTravelMode = !isDivineTravelMode;
+	public void setDivine(boolean value) {
+		isDivineTravelMode = value;
 		System.out.println("divine travel mode is " + isDivineTravelMode);
 	}
 

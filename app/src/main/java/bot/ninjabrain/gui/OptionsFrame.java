@@ -161,7 +161,7 @@ public class OptionsFrame extends ThemedFrame {
 			ac2.add(Box.createVerticalStrut(4));
 			ac2.add(new HotkeyPanel(gui, "Blind travel mode", Main.preferences.hotkeyBlind));
 			ac2.add(Box.createVerticalStrut(4));
-			ac2.add(new HotkeyPanel(gui, "Divine travel mode", Main.preferences.hotkeyDivine));
+			ac2.add(new HotkeyPanel(gui, "In-game chat hotkey (for divine)", Main.preferences.hotkeyStartEnteringDivine));
 		}
 	}
 	

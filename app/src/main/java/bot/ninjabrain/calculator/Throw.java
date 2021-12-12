@@ -35,8 +35,6 @@ public class Throw implements Ray {
 	 * in the overworld, null otherwise.
 	 */
 	public static Throw parseF3C(String string) {
-		if (!string.startsWith("/execute in minecraft:overworld run tp @s"))
-			return null;
 		String[] substrings = string.split(" ");
 		if (substrings.length != 11)
 			return null;
