@@ -28,6 +28,7 @@ import bot.ninjabrain.gui.components.MainButtonPanel;
 import bot.ninjabrain.gui.components.MainTextArea;
 import bot.ninjabrain.gui.components.NinjabrainBotFrame;
 import bot.ninjabrain.gui.components.ThemedComponent;
+import bot.sharpie.calculator.BlindTraveler;
 
 /**
  * Main class for the user interface.
@@ -53,7 +54,9 @@ public class GUI {
 	private static int autoResetDelay = 15 * 60 * 1000;
 	
 	public static final int MAX_THROWS = 10;
+	private boolean isBlindTravelMode;
 	private Triangulator triangulator;
+	private BlindTraveler blindTraveler;
 	private ArrayList<Throw> eyeThrows;
 	private ArrayList<Throw> eyeThrowsLast;
 
@@ -63,6 +66,7 @@ public class GUI {
 		Locale.setDefault(Locale.US);
 		themedComponents = new ArrayList<ThemedComponent>();
 		triangulator = new Triangulator();
+		blindTraveler = new BlindTraveler();
 		eyeThrows = new ArrayList<Throw>();
 		eyeThrowsLast = new ArrayList<Throw>();
 		
@@ -219,7 +223,13 @@ public class GUI {
 		frame.toggleMinimized();
 	}
 
+	public void doBlind() {
+
+		isBlindTravelMode = true;
+	}
+
 	public void resetThrows() {
+		isBlindTravelMode = false;
 		if (eyeThrows.size() > 0) {
 			ArrayList<Throw> temp = eyeThrowsLast;
 			eyeThrowsLast = eyeThrows;
@@ -246,7 +256,14 @@ public class GUI {
 	
 	private void processClipboardUpdate(String clipboard) {
 		Throw t = Throw.parseF3C(clipboard);
-		if (!calibrationPanel.isCalibrating()) {
+		if (isBlindTravelMode) {
+			eyeThrows.add(t);
+			TriangulationResult result = blindTraveler.triangulate(eyeThrows);
+			mainTextArea.setResult(result);
+			eyeThrows.clear();
+			isBlindTravelMode = false;
+		}
+		else if (!calibrationPanel.isCalibrating()) {
 			int i = eyeThrows.size();
 			if (t != null && i < MAX_THROWS && shouldAddThrow(t)) {
 				saveThrowsForUndo();

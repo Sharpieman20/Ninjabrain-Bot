@@ -107,7 +107,7 @@ public class Calibrator {
 		lastZ = z;
 	}
 	
-	private double getAlpha(Chunk strongholdChunk, double x, double z) {
+	public static double getAlpha(Chunk strongholdChunk, double x, double z) {
 		double deltax = strongholdChunk.x * 16 + 8 - x;
 		double deltaz = strongholdChunk.z * 16 + 8 - z;
 		double alpha = -180 / Math.PI * Math.atan2(deltax, deltaz); // mod 360 necessary?

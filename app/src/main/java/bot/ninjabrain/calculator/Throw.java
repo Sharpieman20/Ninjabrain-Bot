@@ -59,6 +59,10 @@ public class Throw implements Ray {
 		return dx * dx + dz * dz;
 	}
 
+	public double magnitude() {
+		return Math.sqrt(this.distance2(new Throw(0, 0, 0)));
+	}
+
 	@Override
 	public double x() {
 		return x;
