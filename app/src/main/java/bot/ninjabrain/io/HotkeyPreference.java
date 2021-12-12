@@ -30,10 +30,12 @@ public class HotkeyPreference {
 	}
 	
 	public synchronized void setCode(int value) {
+		System.out.println("code set to " + value);
 		code.set(value);
 	}
 	
 	public synchronized void setModifier(int value) {
+		System.out.println("modifier set to " + value);
 		modifier.set(value);
 	}
 

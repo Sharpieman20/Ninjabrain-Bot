@@ -160,6 +160,8 @@ public class OptionsFrame extends ThemedFrame {
 			ac2.add(new HotkeyPanel(gui, "Hide/show window", Main.preferences.hotkeyMinimize));
 			ac2.add(Box.createVerticalStrut(4));
 			ac2.add(new HotkeyPanel(gui, "Blind travel mode", Main.preferences.hotkeyBlind));
+			ac2.add(Box.createVerticalStrut(4));
+			ac2.add(new HotkeyPanel(gui, "Divine travel mode", Main.preferences.hotkeyDivine));
 		}
 	}
 	

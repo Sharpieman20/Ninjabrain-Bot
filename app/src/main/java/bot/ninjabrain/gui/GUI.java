@@ -29,6 +29,7 @@ import bot.ninjabrain.gui.components.MainTextArea;
 import bot.ninjabrain.gui.components.NinjabrainBotFrame;
 import bot.ninjabrain.gui.components.ThemedComponent;
 import bot.sharpie.calculator.BlindTraveler;
+import bot.sharpie.calculator.DivineTraveler;
 
 /**
  * Main class for the user interface.
@@ -55,8 +56,11 @@ public class GUI {
 	
 	public static final int MAX_THROWS = 10;
 	private boolean isBlindTravelMode;
+	private boolean isDivineTravelMode;
+	private int storedDivine;
 	private Triangulator triangulator;
 	private BlindTraveler blindTraveler;
+	private DivineTraveler divineTraveler;
 	private ArrayList<Throw> eyeThrows;
 	private ArrayList<Throw> eyeThrowsLast;
 
@@ -67,6 +71,8 @@ public class GUI {
 		themedComponents = new ArrayList<ThemedComponent>();
 		triangulator = new Triangulator();
 		blindTraveler = new BlindTraveler();
+		divineTraveler = new DivineTraveler();
+		storedDivine = -1;
 		eyeThrows = new ArrayList<Throw>();
 		eyeThrowsLast = new ArrayList<Throw>();
 		
@@ -224,12 +230,30 @@ public class GUI {
 	}
 
 	public void doBlind() {
-
 		isBlindTravelMode = true;
+	}
+
+	public void toggleDivine() {
+		isDivineTravelMode = !isDivineTravelMode;
+		System.out.println("divine travel mode is " + isDivineTravelMode);
+	}
+
+	public void updateStoredDivine(int i) {
+		if (!isDivineTravelMode) {
+			return;
+		}
+		if (storedDivine == 1) {
+			storedDivine = 10;
+		} else if (storedDivine == -1) {
+			storedDivine = 0;
+		}
+		storedDivine += i;
+		System.out.println("stored divine updated to " + storedDivine);
 	}
 
 	public void resetThrows() {
 		isBlindTravelMode = false;
+		storedDivine = -1;
 		if (eyeThrows.size() > 0) {
 			ArrayList<Throw> temp = eyeThrowsLast;
 			eyeThrowsLast = eyeThrows;
@@ -256,12 +280,20 @@ public class GUI {
 	
 	private void processClipboardUpdate(String clipboard) {
 		Throw t = Throw.parseF3C(clipboard);
+		System.out.println("clipboard updating stored divine " + storedDivine);
 		if (isBlindTravelMode) {
 			eyeThrows.add(t);
 			TriangulationResult result = blindTraveler.triangulate(eyeThrows);
 			mainTextArea.setResult(result);
 			eyeThrows.clear();
 			isBlindTravelMode = false;
+		}
+		else if (storedDivine != -1) {
+			eyeThrows.add(t);
+			TriangulationResult result = divineTraveler.triangulate(eyeThrows, storedDivine);
+			mainTextArea.setResult(result);
+			eyeThrows.clear();
+			storedDivine = -1;
 		}
 		else if (!calibrationPanel.isCalibrating()) {
 			int i = eyeThrows.size();
