@@ -56,6 +56,7 @@ public class GUI {
 	
 	public static final int MAX_THROWS = 10;
 	private boolean isBlindTravelMode;
+	private long divineTravelTime;
 	private boolean isDivineTravelMode;
 	private int storedDivine;
 	private Triangulator triangulator;
@@ -234,6 +235,20 @@ public class GUI {
 	}
 
 	public void setDivine(boolean value) {
+		if (Main.preferences.hotkeyFinishEnteringDivine.getCode() == Main.preferences.hotkeyStartEnteringDivine.getCode()) {
+			if (System.currentTimeMillis() - divineTravelTime > 200) {
+				// only listen for changes
+				if (value == isDivineTravelMode) {
+					return;
+				}
+			} else {
+				// ignore changes
+				if (value != isDivineTravelMode) {
+					return;
+				}
+			}
+			divineTravelTime = System.currentTimeMillis();
+		}
 		isDivineTravelMode = value;
 		System.out.println("divine travel mode is " + isDivineTravelMode);
 	}

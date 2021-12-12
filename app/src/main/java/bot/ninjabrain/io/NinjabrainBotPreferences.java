@@ -92,7 +92,11 @@ public class NinjabrainBotPreferences {
 				SwingUtilities.invokeLater(() -> gui.setDivine(false));
 			}
 		};
-		hotkeyFinishEnteringDivine.setCode(13);
+		if (false) {
+			hotkeyFinishEnteringDivine.setCode(36);
+		} else {
+			hotkeyFinishEnteringDivine.setCode(13);
+		}
 		hotkeyFinishEnteringDivine.setModifier(0);
 		for (int i = 0; i <= 9; i++) {
 			final int key = i;

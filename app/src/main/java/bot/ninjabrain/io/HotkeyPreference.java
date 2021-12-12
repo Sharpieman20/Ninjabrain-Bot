@@ -11,10 +11,13 @@ public class HotkeyPreference {
 	
 	Preferences pref;
 
+	String name;
+
 	IntPreference modifier;
 	IntPreference code;
 
 	public HotkeyPreference(String key, Preferences pref) {
+		this.name = key;
 		this.pref = pref;
 		modifier = new IntPreference(key + "_modifier", -1, pref);
 		code = new IntPreference(key + "_code", -1, pref);
@@ -30,12 +33,12 @@ public class HotkeyPreference {
 	}
 	
 	public synchronized void setCode(int value) {
-		System.out.println("code set to " + value);
+		System.out.println("code set to " + value + " for " + name);
 		code.set(value);
 	}
 	
 	public synchronized void setModifier(int value) {
-		System.out.println("modifier set to " + value);
+		System.out.println("modifier set to " + value + " for " + name);
 		modifier.set(value);
 	}
 
