@@ -30,6 +30,7 @@ import bot.ninjabrain.gui.components.NinjabrainBotFrame;
 import bot.ninjabrain.gui.components.ThemedComponent;
 import bot.sharpie.calculator.BlindTraveler;
 import bot.sharpie.calculator.DivineTraveler;
+import bot.sharpie.calculator.Hitboxer;
 
 /**
  * Main class for the user interface.
@@ -60,6 +61,7 @@ public class GUI {
 	private boolean isDivineTravelMode;
 	private int storedDivine;
 	private Triangulator triangulator;
+	private Hitboxer hitboxer;
 	private BlindTraveler blindTraveler;
 	private DivineTraveler divineTraveler;
 	private ArrayList<Throw> eyeThrows;
@@ -71,6 +73,8 @@ public class GUI {
 		Locale.setDefault(Locale.US);
 		themedComponents = new ArrayList<ThemedComponent>();
 		triangulator = new Triangulator();
+		hitboxer = new Hitboxer();
+		hitboxer.setTriangulator(triangulator);
 		blindTraveler = new BlindTraveler();
 		divineTraveler = new DivineTraveler();
 		storedDivine = -1;
@@ -269,6 +273,7 @@ public class GUI {
 	public void resetThrows() {
 		isBlindTravelMode = false;
 		storedDivine = -1;
+		isDivineTravelMode = false;
 		if (eyeThrows.size() > 0) {
 			ArrayList<Throw> temp = eyeThrowsLast;
 			eyeThrowsLast = eyeThrows;
@@ -365,7 +370,7 @@ public class GUI {
 		TriangulationResult result = null;
 		double[] errors = null;
 		if (eyeThrows.size() >= 1) {
-			result = triangulator.triangulate(eyeThrows);
+			result = hitboxer.triangulate(eyeThrows);
 			if (result.success) {
 				errors = result.getAngleErrors(eyeThrows);
 			}
