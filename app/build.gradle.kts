@@ -5,7 +5,7 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.2/samples
  */
 
-version="1.0.8"
+version="1.1.0"
 
 plugins {
     application
