@@ -24,6 +24,11 @@ public class Triangulator {
 		this.sigma = sigma;
 	}
 
+	public double getSigma() {
+
+		return sigma;
+	}
+
 	public TriangulationResult triangulate(ArrayList<Throw> eyeThrows) {
 		if (eyeThrows.size() == 0)
 			return new TriangulationResult();

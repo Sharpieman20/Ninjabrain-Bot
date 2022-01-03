@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import bot.Main;
+import bot.ninjabrain.calculator.Chunk;
 import bot.ninjabrain.calculator.Throw;
 import bot.ninjabrain.calculator.Triangulator;
 import bot.ninjabrain.io.VersionURL;
@@ -28,6 +29,7 @@ import bot.ninjabrain.gui.components.MainButtonPanel;
 import bot.ninjabrain.gui.components.MainTextArea;
 import bot.ninjabrain.gui.components.NinjabrainBotFrame;
 import bot.ninjabrain.gui.components.ThemedComponent;
+import bot.sharpie.CustomTriangulationResult;
 import bot.sharpie.calculator.BlindTraveler;
 import bot.sharpie.calculator.DivineTraveler;
 import bot.sharpie.calculator.Hitboxer;
@@ -59,6 +61,7 @@ public class GUI {
 	private boolean isBlindTravelMode;
 	private long divineTravelTime;
 	private boolean isDivineTravelMode;
+	public static boolean isEducatedThrow;
 	private int storedDivine;
 	private Triangulator triangulator;
 	private Hitboxer hitboxer;
@@ -140,6 +143,7 @@ public class GUI {
 			resetThrows();
 			autoResetTimer.stop();
 		});
+		resetThrows();
 	}
 	
 	public void setTranslucent(boolean t) {
@@ -271,9 +275,12 @@ public class GUI {
 	}
 
 	public void resetThrows() {
+		System.out.println("reset");
 		isBlindTravelMode = false;
 		storedDivine = -1;
 		isDivineTravelMode = false;
+		isEducatedThrow = true;
+		mainTextArea.setResult(null);
 		if (eyeThrows.size() > 0) {
 			ArrayList<Throw> temp = eyeThrowsLast;
 			eyeThrowsLast = eyeThrows;
@@ -300,7 +307,10 @@ public class GUI {
 	
 	private void processClipboardUpdate(String clipboard) {
 		Throw t = Throw.parseF3C(clipboard);
-		System.out.println("clipboard updating stored divine " + storedDivine);
+		System.out.println("clipboard updating stored divine " + storedDivine + isBlindTravelMode + t);
+		if (t == null) {
+			return;
+		}
 		if (isBlindTravelMode) {
 			eyeThrows.add(t);
 			TriangulationResult result = blindTraveler.triangulate(eyeThrows);
@@ -314,6 +324,16 @@ public class GUI {
 			mainTextArea.setResult(result);
 			eyeThrows.clear();
 			storedDivine = -1;
+		} else if (isEducatedThrow) {
+			// negative so we go in opposite direction of throw
+			// normally would be -sin and +cos
+			int xDiff = (int) (12.0*Math.sin(t.alpha()/180.0*Math.PI));
+			int zDiff = (int) (-12.0*Math.cos(t.alpha()/180.0*Math.PI));
+			Chunk chunk = new Chunk(xDiff, zDiff);
+			chunk.weight = 1.0;
+			mainTextArea.setResult(new CustomTriangulationResult(chunk));
+			isEducatedThrow = false;
+			System.out.println("educated throw " + chunk);
 		}
 		else if (!calibrationPanel.isCalibrating()) {
 			int i = eyeThrows.size();
@@ -369,12 +389,12 @@ public class GUI {
 	private void onThrowsUpdated() {
 		TriangulationResult result = null;
 		double[] errors = null;
-		if (eyeThrows.size() >= 1) {
+		if (eyeThrows.size() >= 2) {
 			result = hitboxer.triangulate(eyeThrows);
 			if (result.success) {
 				errors = result.getAngleErrors(eyeThrows);
 			}
-		} 
+		}
 		mainTextArea.setResult(result);
 		enderEyePanel.setErrors(errors);
 		// Update throw panels

@@ -56,22 +56,29 @@ public class MainTextArea extends ThemedPanel {
 	}
 	
 	public void setResult(TriangulationResult result) {
-		if (result != null) {
-			if (result.success) {
-				lastCertainty = result.weight;
-				maintextLabel.setText(result.format());
-				certaintytextLabel.setText(CERTAINTY_TEXT);
-				certaintyLabel.setText(String.format(Locale.US, "%.1f%%", result.weight*100.0));
-				netherLabel.setText(String.format(Locale.US, "Nether coordinates: (%d, %d)", result.x*2, result.z*2));
-			} else {
-				maintextLabel.setText("Could not determine the stronghold chunk.");
-				certaintytextLabel.setText("You probably misread one of the eyes.");
-				certaintyLabel.setText("");
-				netherLabel.setText("");
-			}
-		} else {
+		if (result == null) {
 			maintextLabel.setText("Waiting for F3+C...");
 			certaintytextLabel.setText("");
+			certaintyLabel.setText("");
+			netherLabel.setText("");
+			return;
+		}
+		if (GUI.isEducatedThrow) {
+			maintextLabel.setText(result.format());
+			certaintytextLabel.setText("");
+			certaintyLabel.setText("");
+			netherLabel.setText("");
+			return;
+		}
+		if (result.success) {
+			lastCertainty = result.weight;
+			maintextLabel.setText(result.format());
+			certaintytextLabel.setText(CERTAINTY_TEXT);
+			certaintyLabel.setText(String.format(Locale.US, "%.1f%%", result.weight*100.0));
+			netherLabel.setText(String.format(Locale.US, "Nether coordinates: (%d, %d)", result.x*2, result.z*2));
+		} else {
+			maintextLabel.setText("Could not determine the stronghold chunk.");
+			certaintytextLabel.setText("You probably misread one of the eyes.");
 			certaintyLabel.setText("");
 			netherLabel.setText("");
 		}

@@ -87,6 +87,23 @@ public class Hitboxer extends Triangulator {
 
         System.out.println("using adjusted throw" + adjustedThrow);
 
-        return innerTriangulator.triangulate(throwList);
+        double oldSigma = innerTriangulator.getSigma();
+
+        double minAdjustedAngle = getAdjustedAngle(relativeMeasurePoint, angle-0.005);
+        double maxAdjustedAngle = getAdjustedAngle(relativeMeasurePoint, angle+0.005);
+
+        double diffBetween = Math.abs(maxAdjustedAngle-minAdjustedAngle);
+
+        double sigmaMult = oldSigma / 0.01;
+
+        double adjustedSigma = sigmaMult * diffBetween;
+
+        innerTriangulator.setSigma(adjustedSigma);
+
+        TriangulationResult result = innerTriangulator.triangulate(throwList);
+
+        innerTriangulator.setSigma(oldSigma);
+
+        return result;
     }
 }
